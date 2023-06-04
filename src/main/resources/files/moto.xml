@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Moto>
-    <make>Saraaaaaaaaaaaaaaaaa</make>
-    <model>Magas</model>
-    <year>2000</year>
+    <make>Ducati</make>
+    <model>Panigale</model>
+    <year>2020</year>
     <power>110dw</power>
     <engine>n2</engine>
     <torque>88eefef</torque>

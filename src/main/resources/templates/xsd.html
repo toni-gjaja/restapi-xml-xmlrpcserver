@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Xsd</title>
+</head>
+<body>
+
+<div th:replace="navbar"></div>
+
+<style>
+
+    .myForm{
+
+        width: 100%;
+        margin-top: 50px;
+        color: white;
+        align-items: center;
+
+
+    }
+
+    h1{
+        color: white;
+    }
+
+    form{
+        width: 40%;
+    }
+
+    textarea{
+
+        white-space: pre;
+    }
+
+    .infoDiv{
+        height: 70px;
+    }
+
+</style>
+
+<div class="myForm" data-aos="zoom-in">
+
+    <div class="d-flex justify-content-center mt-5">
+
+        <h1>XML -> XSD</h1>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+
+        <form action="/app/validateWithXsd" method="post">
+            <div class="form-group">
+                <label>Make</label>
+                <input type="text" id="make" class="form-control" placeholder="Ducati">
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <input type="text" id="model" class="form-control" placeholder="Panigale">
+            </div>
+            <div class="form-group">
+                <label>Year</label>
+                <input type="text" id="year" class="form-control" placeholder="2022">
+            </div>
+            <div class="form-group">
+                <label>Power</label>
+                <input type="text" id="power" class="form-control" placeholder="110HP">
+            </div>
+            <div class="form-group">
+                <label>Engine</label>
+                <input type="text" id="engine" class="form-control" placeholder="V2">
+            </div>
+            <div class="form-group">
+                <label>Torque</label>
+                <input type="text" id="torque" class="form-control" placeholder="88NM">
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" onclick="submitForm()" class="btn btn-secondary">Check validity</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-center infoDiv mt-3">
+
+    <div class="alert alert-success" role="alert" style="display: none" id="success">
+        Xml validation succeeded!
+    </div>
+
+    <div class="alert alert-danger" role="alert" style="display: none" id="failure">
+        Xml validation failed!
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-around mt-5 mb-5">
+
+    <textarea id="xml" rows="18" cols="85" data-aos="fade-right" readonly>
+
+    </textarea>
+
+    <textarea id="xsd" rows="18" cols="85" data-aos="fade-left" readonly>
+
+    </textarea>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $.ajax({
+
+        type: "GET",
+        url: "/app/loadXsd",
+        dataType: "text",
+        success: function (xsd){
+            $("#xsd").val(xsd)
+        }
+
+    })
+
+    function submitForm(){
+
+        event.preventDefault();
+
+        const formData = {
+
+            make: document.getElementById("make").value,
+            model: document.getElementById("model").value,
+            year: document.getElementById("year").value,
+            power: document.getElementById("power").value,
+            engine: document.getElementById("engine").value,
+            torque: document.getElementById("torque").value
+
+        };
+
+        $.ajax({
+            type:"POST",
+            url:"/app/validateWithXsd",
+            data: JSON.stringify(formData),
+            contentType: "application/json; charset=utf-8",
+            dataType:"text",
+            success: function(response) {
+
+                if (response === "success"){
+                    $("#success").show()
+                    $("#failure").hide()
+
+                }
+                else{
+                    $("#failure").show()
+                    $("#success").hide()
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: "/app/loadXml",
+                    dataType: "text",
+                    success: function (xml){
+                        $("#xml").val(xml)
+                    }
+
+                })
+
+            }
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

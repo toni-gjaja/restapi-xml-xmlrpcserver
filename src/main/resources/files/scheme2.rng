@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0"
+             datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:start>
+        <rng:element name="Moto">
+            <rng:element name="make">
+                <rng:data type="string">
+                    <rng:param name="minLength">1</rng:param>
+                </rng:data>
+            </rng:element>
+            <rng:element name="model">
+                <rng:data type="string">
+                    <rng:param name="minLength">1</rng:param>
+                </rng:data>
+            </rng:element>
+            <rng:element name="year">
+                <rng:data type="integer"/>
+            </rng:element>
+            <rng:element name="power">
+                <rng:data type="string">
+                    <rng:param name="minLength">1</rng:param>
+                </rng:data>
+            </rng:element>
+            <rng:element name="engine">
+                <rng:data type="string">
+                    <rng:param name="minLength">1</rng:param>
+                </rng:data>
+            </rng:element>
+            <rng:element name="torque">
+                <rng:data type="string">
+                    <rng:param name="minLength">1</rng:param>
+                </rng:data>
+            </rng:element>
+        </rng:element>
+    </rng:start>
+</rng:grammar>

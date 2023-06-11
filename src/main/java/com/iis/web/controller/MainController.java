@@ -55,7 +55,7 @@ public class MainController {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.api-ninjas.com/v1/motorcycles?make=Ducati"))
-                .header("X-Api-Key", "zzVT/HBL9HnIS9XiC75aeA==77XuygoiuYTR9vim")
+                .header("X-Api-Key", "YOUR_SECRET_KEY")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
 
